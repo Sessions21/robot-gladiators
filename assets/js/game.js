@@ -10,7 +10,7 @@ var enemyAttack = 12;
 var fight = function(enemyName) {
     while(playerHealth > 0 && enemyHealth > 0) {
         var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? Enter 'FIGHT' or 'SKIP' to choose.");
-        if (promptFight === "skip" || promptFight === "SKIP") {
+        if (promptFight === "skip" || promptFight === "SKIP" || promptFight === "Skip") {
             var confirmskip = window.confirm("Are you sure you'd like to quit?");
             if (confirmskip) {
                 window.alert(playerName + " has decided to skip this fight. Goodbye!");
@@ -48,16 +48,40 @@ var fight = function(enemyName) {
         }
     }   
 };
+var startGame = function() {
+    playerHealth = 100;
+    playerAttack = 10;
+    playerMoney = 10;
+    for (var i = 0; i < enemyNames.length; i++) {
+        if (playerHealth > 0) {
+            window.alert("Welcome to Robot Gladiators! Round " + (i + 1));
+        var pickedEnemyName = enemyNames [i];
+        enemyHealth = 50;
+        fight(pickedEnemyName);
+        }
+        else {
+            window.alert("You have lost your robot in battle! Game Over!");
+            break;
+        }
+        endGame();
+    };
+}
 
-for (var i = 0; i < enemyNames.length; i++) {
+var endGame = function(){
     if (playerHealth > 0) {
-        window.alert("Welcome to Robot Gladiators! Round " + (i + 1));
-    var pickedEnemyName = enemyNames [i];
-    enemyHealth = 50;
-    //debugger;
-    fight(pickedEnemyName);
+        window.alert("Great job, you've survived the game! You now have a score of " + playerMoney + ".")
     }
     else {
-        window.alert("You have lost your robot in battle! Game Over!");
+        window.alert("The game has now ended. Let's see how you did!");
     }
-}
+    var PlayAgainConfirm = window.confirm("Would you like to play again?");
+
+    if (PlayAgainConfirm) {
+        startGame();
+    }
+    else {
+        window.alert("Thank you for playing Robot Gladiators! Come back soon!");
+    }
+};
+
+startGame();
